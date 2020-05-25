@@ -1,0 +1,21 @@
+{
+  "auth" : "cpan:GARLANDG",
+  "authors" : [
+    "Travis Gibson"
+  ],
+  "build-depends" : [ ],
+  "depends" : [ ],
+  "description" : "blah blah blah",
+  "license" : "Artistic-2.0",
+  "name" : "LibUSB",
+  "perl" : "6.c",
+  "provides" : {
+    "LibUSB" : "lib/LibUSB.rakumod",
+    "LibUSB::Raw" : "lib/LibUSB/Raw.rakumod"
+  },
+  "resources" : [ ],
+  "source-url" : "",
+  "tags" : [ ],
+  "test-depends" : [ ],
+  "version" : "0.0.1"
+}
