@@ -1,19 +1,19 @@
 NAME
 ====
 
-LibUSB - blah blah blah
+LibUSB - High level binding to libusb
 
 SYNOPSIS
 ========
 
-```perl6
+```raku
 use LibUSB;
 ```
 
 DESCRIPTION
 ===========
 
-LibUSB is ...
+LibUSB is a Raku binding to the libusb library, allowing for access to USB devices
 
 AUTHOR
 ======

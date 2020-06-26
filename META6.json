@@ -11,7 +11,8 @@
   "perl" : "6.c",
   "provides" : {
     "LibUSB" : "lib/LibUSB.rakumod",
-    "LibUSB::Raw" : "lib/LibUSB/Raw.rakumod"
+    "LibUSB::Raw" : "lib/LibUSB/Raw.rakumod",
+    "X::LibUSB" : "lib/X/LibUSB.rakumod"
   },
   "resources" : [ ],
   "source-url" : "",
