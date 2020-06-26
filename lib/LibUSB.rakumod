@@ -48,10 +48,10 @@ method !get-error(Int $err --> Exception) {
 }
 
 multi method get-device(Int $target-vid, Int $target-pid) {
-  self.get-device(-> $vid, $pid { $vid == $target-vid && $pid == $target-pid});
+  self.get-device(-> $desc { $desc.idVendor == $target-vid && $desc.idProduct == $target-pid});
 }
 
-multi method get-device(&check:($vid, $pid)) {
+multi method get-device(&check:($desc)) {
   my int64 $listptr .= new;
   my $size = libusb_get_device_list($!ctx, $listptr);
   my $array = nativecast(CArray[libusb_device], Pointer[libusb_device].new($listptr));
@@ -62,7 +62,7 @@ multi method get-device(&check:($vid, $pid)) {
     my libusb_device_descriptor $desc .= new;
     my $err = libusb_get_device_descriptor($dev, $desc);
     return self!get-error($err) if $err;
-    if &check($desc.idVendor, $desc.idProduct) {
+    if &check($desc) {
       $!dev = $dev;
       return;
     }
