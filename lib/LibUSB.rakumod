@@ -132,19 +132,101 @@ method control-transfer(
 
 =head1 NAME
 
-LibUSB - High level binding to libusb
+LibUSB - OO binding to libusb
 
 =head1 SYNOPSIS
 
 =begin code :lang<raku>
 
+constant VID = <vid>
+constant PID = <pid>
+
 use LibUSB;
+my LibUSB $dev .= new;
+$dev.init;
+$dev.get-device(VID, PID);
+$dev.open()   # May require root privileges
+
+# Do things with the device
+
+$dev.close();
+$dev.exit()
 
 =end code
 
 =head1 DESCRIPTION
 
-LibUSB is a Raku binding to the libusb library, allowing for access to USB devices
+LibUSB is an OO Raku binding to the libusb library, allowing for access to 
+USB devices from Raku.
+
+This interface is experimental and incomplete.
+
+=head2 Methods
+
+=head3 init
+  
+Initialize the libusb library for this device object.
+
+=head3 get-device (multi)
+
+Find the first device that matches the parameters and select it.
+
+=head4 Params
+
+=head5 $vid
+
+The VID of the device
+
+=head5 $pid
+
+The PID of the device
+
+=head3 get-device (multi)
+
+Find the first device with a user-defined check.
+
+=head4 Params
+
+=head5 &check($desc)
+
+Find the first device for which &check returns true. $desc is a 
+libusb_device_descriptor as found in the libusb documentation
+
+=head3 open()
+
+Open the selected device.
+
+=head3 close()
+
+Close the device.
+
+=head3 exit()
+
+Close down the libusb library for this device object.
+
+=head3 vid()
+
+Returns the VID of the device.
+
+=head3 pid()
+
+Returns the PID of the device.
+
+=head3 bus-number()
+
+Returns the bus number of the device.
+
+=head3 address()
+
+Returns the address of the device.
+
+=head3 speed()
+
+Returns the speed of the device.
+
+=head3 control-transfer($request-type, $request, $value, $index, $data, $length, $timeout)
+
+Perform a control transfer to the device.
 
 =head1 AUTHOR
 
