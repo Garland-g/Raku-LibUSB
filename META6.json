@@ -5,7 +5,7 @@
   ],
   "build-depends" : [ ],
   "depends" : [ ],
-  "description" : "blah blah blah",
+  "description" : "OO binding to libusb",
   "license" : "Artistic-2.0",
   "name" : "LibUSB",
   "perl" : "6.c",
@@ -15,7 +15,7 @@
     "X::LibUSB" : "lib/X/LibUSB.rakumod"
   },
   "resources" : [ ],
-  "source-url" : "",
+  "source-url" : "https://git.ohthehugemanatee.tech/travis/Raku-LibUSB.git",
   "tags" : [ ],
   "test-depends" : [ ],
   "version" : "0.0.1"
