@@ -18,4 +18,12 @@ ok LibUSB.^can('bulk-transfer'), <Bulk Transfer>;
 todo 'Interrupt Transfer not implemented';
 ok LibUSB.^can('interrupt-transfer'), <Interrupt Transfer>;
 
+lives-ok {
+my LibUSB $dev .= new;
+
+$dev.init;
+
+$dev.exit;
+
+}, <Load shared libusb library>;
 done-testing;
