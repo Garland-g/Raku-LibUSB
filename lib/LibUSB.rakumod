@@ -157,7 +157,7 @@ use LibUSB;
 my LibUSB $dev .= new;
 $dev.init;
 $dev.get-device(VID, PID);
-$dev.open()   # May require root privileges
+$dev.open()  # Will require elevated privileges
 
 # Do things with the device
 
@@ -187,11 +187,11 @@ Find the first device that matches the parameters and select it.
 
 =head5 $vid
 
-The VID of the device
+The VID of the device.
 
 =head5 $pid
 
-The PID of the device
+The PID of the device.
 
 =head3 get-device (multi)
 
@@ -202,7 +202,7 @@ Find the first device with a user-defined check.
 =head5 &check($desc)
 
 Find the first device for which &check returns true. $desc is a 
-libusb_device_descriptor as found in the libusb documentation
+libusb_device_descriptor as found in the libusb documentation.
 
 =head3 open()
 
@@ -216,11 +216,11 @@ Close the device.
 
 Close down the libusb library for this device object.
 
-=head3 vid()
+=head3 Int vid()
 
 Returns the VID of the device.
 
-=head3 pid()
+=head3 Int pid()
 
 Returns the PID of the device.
 
@@ -236,9 +236,40 @@ Returns the address of the device.
 
 Returns the speed of the device.
 
-=head3 control-transfer($request-type, $request, $value, $index, $data, $length, $timeout)
+=head3 control-transfer
 
-Perform a control transfer to the device.
+Perform a control transfer to the device. It supports named parameters in any
+order, or positional parameters in the order below.
+
+=head4 Params
+
+=head5 uint8 $request-type
+
+The USB control transfer request type.
+
+=head5 uint8 $request
+
+The USB control transfer request.
+
+=head5 uint16 $value
+
+The USB control transfer value.
+
+=head5 uint16 $index
+
+The USB control transfer index.
+
+=head5 buf8 $data
+
+A buffer containing data to send, or containing space to receive data.
+
+=head5 uint16 $elems
+
+The number of elems in $data.
+
+=head5 uint32 $timeout
+
+How long to wait before timing out. Defaults to 0 (never time out).
 
 =head1 AUTHOR
 
