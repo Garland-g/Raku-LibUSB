@@ -42,11 +42,11 @@ Find the first device that matches the parameters and select it.
 
 #### Params
 
-##### $vid
+##### Int $vid
 
 The VID of the device.
 
-##### $pid
+##### Int $pid
 
 The PID of the device.
 
@@ -72,11 +72,11 @@ Close the device.
 
 Close down the libusb library for this device object.
 
-### Int vid()
+### vid()
 
 Returns the VID of the device.
 
-### Int pid()
+### pid()
 
 Returns the PID of the device.
 

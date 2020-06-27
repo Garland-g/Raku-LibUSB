@@ -185,11 +185,11 @@ Find the first device that matches the parameters and select it.
 
 =head4 Params
 
-=head5 $vid
+=head5 Int $vid
 
 The VID of the device.
 
-=head5 $pid
+=head5 Int $pid
 
 The PID of the device.
 
@@ -216,11 +216,11 @@ Close the device.
 
 Close down the libusb library for this device object.
 
-=head3 Int vid()
+=head3 vid()
 
 Returns the VID of the device.
 
-=head3 Int pid()
+=head3 pid()
 
 Returns the PID of the device.
 
