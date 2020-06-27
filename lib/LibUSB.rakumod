@@ -112,18 +112,30 @@ method speed(--> libusb_speed) {
   return libusb_speed(libusb_get_device_speed($!dev));
 }
 
-method control-transfer(
+multi method control-transfer(
+                        uint8 $request-type,
+                        uint8 $request,
+                        uint16 $value,
+                        uint16 $index,
+                        buf8 $data,
+                        uint16 $elems,
+                        uint32 $timeout = 0
+                        ) {
+  self.control-transfer(:$request-type, :$request, :$value, :$index, :$data, :$elems, :$timeout);
+}
+
+multi method control-transfer(
                         uint8 :$request-type!,
                         uint8 :$request!,
                         uint16 :$value!,
                         uint16 :$index!,
                         buf8 :$data!,
-                        uint16 :$length!,
+                        uint16 :$elems!,
                         uint32 :$timeout = 0
                         ) {
   fail X::LibUSB::No-Device-Selected unless $!dev;
   fail "Device not open" unless $!handle;
-  my $err = libusb_control_transfer($!handle, $request-type, $request, $value, $index, nativecast(Pointer[uint8], $data), $length, $timeout);
+  my $err = libusb_control_transfer($!handle, $request-type, $request, $value, $index, nativecast(Pointer[uint8], $data), $elems, $timeout);
   die self!get-error($err) if $err < 0;
   return $err;
 }
