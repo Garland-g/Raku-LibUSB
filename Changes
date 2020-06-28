@@ -2,5 +2,8 @@ Revision history for LibUSB
 
 {{$NEXT}}
 
+0.0.2  2020-06-28T13:18:51-07:00
+    - Change shared library base name
+
 0.0.1  2020-06-27T13:59:11-07:00
     - Initial version

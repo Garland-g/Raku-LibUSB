@@ -5,7 +5,7 @@ use NativeCall;
 
 constant MAX-BUFFER-SIZE = 256;
 
-unit class LibUSB:ver<0.0.1>:auth<cpan:GARLANDG>;
+unit class LibUSB:ver<0.0.2>:auth<cpan:GARLANDG>;
 
 has libusb_context $!ctx .= new;
 has libusb_device_handle $!handle;
