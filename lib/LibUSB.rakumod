@@ -140,6 +140,56 @@ multi method control-transfer(
   return $err;
 }
 
+multi method interrupt-transfer(
+                        uint8 $endpoint,
+                        blob8 $data,
+                        Int $transferred is rw,
+                        uint32 $timeout = 0
+                        ) {
+  self.interrupt-transfer(:$endpoint, :$data, :$transferred, :$timeout);
+}
+
+multi method interrupt-transfer(
+                        uint8 :$endpoint!,
+                        blob8 :$data!,
+                        Int :$transferred! is rw,
+                        uint32 :$timeout = 0
+                        ) {
+  fail X::LibUSB::No-Device-Selected unless $!dev;
+  fail "Device not open" unless $!handle;
+  my int32 $elems = $data.elems;
+  my int32 $native-transfer = 0;
+  my $err = libusb_interrupt_transfer($!handle, $endpoint, nativecast(Pointer, $data), $elems, $native-transfer, $timeout);
+  $transferred = $native-transfer;
+  die self!get-error($err) if $err < 0;
+  return $err;
+}
+
+multi method bulk-transfer(
+                        uint8 $endpoint,
+                        blob8 $data,
+                        Int $transferred is rw,
+                        uint32 $timeout = 0
+                        ) {
+  self.bulk-transfer(:$endpoint, :$data, :$transferred, :$timeout);
+}
+
+multi method bulk-transfer(
+                        uint8 :$endpoint,
+                        blob8 :$data,
+                        Int :$transferred is rw,
+                        uint32 :$timeout = 0
+                        ) {
+  fail X::LibUSB::No-Device-Selected unless $!dev;
+  fail "Device not open" unless $!handle;
+  my int32 $elems = $data.elems;
+  my int32 $native-transfer = 0;
+  my $err = libusb_bulk_transfer($!handle, $endpoint, nativecast(Pointer, $data), $elems, $native-transfer, $timeout);
+  $transferred = $native-transfer;
+  die self!get-error($err) if $err < 0;
+  return $err;
+}
+
 =begin pod
 
 =head1 NAME
