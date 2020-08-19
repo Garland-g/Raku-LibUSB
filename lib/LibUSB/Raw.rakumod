@@ -226,6 +226,20 @@ class libusb_device_descriptor is repr('CStruct') is export {
   has uint8 $.iProduct;
   has uint8 $.iSerialNumber;
   has uint8 $.bNumConfigurations;
+  method bLength { $!bLength +& 0xFF }
+  method bDescriptorType { $!bDescriptorType +& 0xFF }
+  method bcdUSB { $!bcdUSB +& 0xFFFF }
+  method bDeviceClass { $!bDeviceClass +& 0xFF }
+  method bDeviceSubClass { $!bDeviceSubClass +& 0xFF }
+  method bDeviceProtocol { $!bDeviceProtocol +& 0xFF }
+  method bMaxPacketSize0 { $!bMaxPacketSize0 +& 0xFF }
+  method idVendor { $!idVendor +& 0xFFFF }
+  method idProduct { $!idProduct +& 0xFFFF }
+  method bcdDevice { $!bcdDevice +& 0xFFFF }
+  method iManufacturer { $!iManufacturer +& 0xFF }
+  method iProduct { $!iProduct +& 0xFF }
+  method iSerialNumber { $!iSerialNumber +& 0xFF }
+  method bNumConfigurations { $!bNumConfigurations +& 0xFF }
 }
 
 class libusb_endpoint_descriptor is repr('CStruct') is export {
@@ -238,6 +252,13 @@ class libusb_endpoint_descriptor is repr('CStruct') is export {
   has uint8 $.bSynchAddress;
   has Pointer[uint8] $.extra;
   has int32 $.extra_length;
+  method bLength { $!bLength +& 0xFF }
+  method bDescriptorType { $!bDescriptorType +& 0xFF }
+  method bEndpointAddress { $!bEndpointAddress +& 0xFF }
+  method bmAttributes { $!bmAttributes +& 0xFF }
+  method wMaxPacketSize { $!wMaxPacketSize +& 0xFFFF }
+  method bRefresh { $!bRefresh +& 0xFF }
+  method bSynchAddress { $!bSynchAddress +& 0xFF }
 }
 
 class libusb_interface_descriptor is repr('CStruct') is export {
@@ -252,6 +273,14 @@ class libusb_interface_descriptor is repr('CStruct') is export {
   has libusb_endpoint_descriptor $.endpoint; #Array. How to access?
   has Pointer[uint8] $.extra;
   has int32 $.extra_length;
+  method bLength { $!bLength +& 0xFF }
+  method bDescriptorType { $!bDescriptorType +& 0xFF }
+  method bInterfaceNumber { $!bInterfaceNumber +& 0xFF }
+  method bAlternateSetting { $!bAlternateSetting +& 0xFF }
+  method bNumEndpoints { $!bNumEndpoints +& 0xFF }
+  method bInterfaceClass { $!bInterfaceClass +& 0xFF }
+  method bInterfaceSubClass { $!bInterfaceSubClass +& 0xFF }
+  method bInterfaceProtocol { $!bInterfaceProtocol +& 0xFF }
 }
 
 class libusb_interface is repr('CStruct') is export {
@@ -271,6 +300,14 @@ class libusb_config_descriptor is repr('CStruct') is export {
   has libusb_interface $.interface; #Array. How to access?
   has Pointer[uint8] $.extra;
   has int32 $.extra_length;
+  method bLength { $!bLength +& 0xFF }
+  method bDescriptorType { $!bDescriptorType +& 0xFF }
+  method wTotalLength { $!wTotalLength +& 0xFF }
+  method bNumInterfaces { $!bNumInterfaces +& 0xFF }
+  method bConfigurationValue { $!bConfigurationValue +& 0xFF }
+  method iConfiguration { $!iConfiguration +& 0xFF }
+  method bmAttributes { $!bmAttributes +& 0xFF }
+  method MaxPower { $!MaxPower +& 0xFF }
 }
 
 sub libusb_bulk_transfer(libusb_device_handle, uint8 $endpoint, Pointer[uint8] $data, int32 $length, int32 $transferred is rw, uint32 $timeout) returns int32 is native(LIB) is export { ... }
