@@ -117,7 +117,7 @@ multi method control-transfer(
                         uint8 $request,
                         uint16 $value,
                         uint16 $index,
-                        buf8 $data,
+                        blob8 $data,
                         uint16 $elems,
                         uint32 $timeout = 0
                         ) {
@@ -129,7 +129,7 @@ multi method control-transfer(
                         uint8 :$request!,
                         uint16 :$value!,
                         uint16 :$index!,
-                        buf8 :$data!,
+                        blob8 :$data!,
                         uint16 :$elems!,
                         uint32 :$timeout = 0
                         ) {
@@ -143,6 +143,7 @@ multi method control-transfer(
 multi method interrupt-transfer(
                         uint8 $endpoint,
                         blob8 $data,
+                        uint16 $elems,
                         Int $transferred is rw,
                         uint32 $timeout = 0
                         ) {
@@ -152,12 +153,12 @@ multi method interrupt-transfer(
 multi method interrupt-transfer(
                         uint8 :$endpoint!,
                         blob8 :$data!,
+                        uint16 :$elems!,
                         Int :$transferred! is rw,
                         uint32 :$timeout = 0
                         ) {
   fail X::LibUSB::No-Device-Selected unless $!dev;
   fail "Device not open" unless $!handle;
-  my int32 $elems = $data.elems;
   my int32 $native-transfer = 0;
   my $err = libusb_interrupt_transfer($!handle, $endpoint, nativecast(Pointer, $data), $elems, $native-transfer, $timeout);
   $transferred = $native-transfer;
@@ -168,6 +169,7 @@ multi method interrupt-transfer(
 multi method bulk-transfer(
                         uint8 $endpoint,
                         blob8 $data,
+                        uint16 $elems,
                         Int $transferred is rw,
                         uint32 $timeout = 0
                         ) {
@@ -175,14 +177,14 @@ multi method bulk-transfer(
 }
 
 multi method bulk-transfer(
-                        uint8 :$endpoint,
-                        blob8 :$data,
-                        Int :$transferred is rw,
+                        uint8 :$endpoint!,
+                        blob8 :$data!,
+                        uint16 :$elems!,
+                        Int :$transferred! is rw,
                         uint32 :$timeout = 0
                         ) {
   fail X::LibUSB::No-Device-Selected unless $!dev;
   fail "Device not open" unless $!handle;
-  my int32 $elems = $data.elems;
   my int32 $native-transfer = 0;
   my $err = libusb_bulk_transfer($!handle, $endpoint, nativecast(Pointer, $data), $elems, $native-transfer, $timeout);
   $transferred = $native-transfer;
@@ -309,13 +311,67 @@ The USB control transfer value.
 
 The USB control transfer index.
 
-=head5 buf8 $data
+=head5 blob8 $data
 
 A buffer containing data to send, or containing space to receive data.
 
 =head5 uint16 $elems
 
 The number of elems in $data.
+
+=head5 uint32 $timeout
+
+How long to wait before timing out. Defaults to 0 (never time out).
+
+=head3 bulk-transfer
+
+Perform a bulk transfer to the device. It supports named parameters in any
+order, or positional parameters in the order below.
+
+=head4 Params
+
+=head5 uint8 $endpoint
+
+The target endpoint
+
+=head5 blob8 $data
+
+A buffer containing data to send, or containing space to receive data.
+
+=head5 uint16 $elems
+
+The number of elems in $data.
+
+=head5 Int $transferred is rw
+
+The amount of data transferred (output)
+
+=head5 uint32 $timeout
+
+How long to wait before timing out. Defaults to 0 (never time out).
+
+=head3 interrupt-transfer
+
+Perform a interrupt transfer to the device. It supports named parameters in any
+order, or positional parameters in the order below.
+
+=head4 Params
+
+=head5 uint8 $endpoint
+
+The target endpoint
+
+=head5 blob8 $data
+
+A buffer containing data to send, or containing space to receive data.
+
+=head5 uint16 $elems
+
+The number of elems in $data.
+
+=head5 Int $transferred is rw
+
+The amount of data transferred (output)
 
 =head5 uint32 $timeout
 

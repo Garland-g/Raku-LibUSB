@@ -116,13 +116,65 @@ The USB control transfer value.
 
 The USB control transfer index.
 
-##### buf8 $data
+##### blob8 $data
 
 A buffer containing data to send, or containing space to receive data.
 
 ##### uint16 $elems
 
 The number of elems in $data.
+
+##### uint32 $timeout
+
+How long to wait before timing out. Defaults to 0 (never time out).
+
+### bulk-transfer
+
+Perform a bulk transfer to the device. It supports named parameters in any order, or positional parameters in the order below.
+
+#### Params
+
+##### uint8 $endpoint
+
+The target endpoint
+
+##### blob8 $data
+
+A buffer containing data to send, or containing space to receive data.
+
+##### uint16 $elems
+
+The number of elems in $data.
+
+##### Int $transferred is rw
+
+The amount of data transferred (output)
+
+##### uint32 $timeout
+
+How long to wait before timing out. Defaults to 0 (never time out).
+
+### interrupt-transfer
+
+Perform a interrupt transfer to the device. It supports named parameters in any order, or positional parameters in the order below.
+
+#### Params
+
+##### uint8 $endpoint
+
+The target endpoint
+
+##### blob8 $data
+
+A buffer containing data to send, or containing space to receive data.
+
+##### uint16 $elems
+
+The number of elems in $data.
+
+##### Int $transferred is rw
+
+The amount of data transferred (output)
 
 ##### uint32 $timeout
 
