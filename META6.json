@@ -15,7 +15,7 @@
     "X::LibUSB" : "lib/X/LibUSB.rakumod"
   },
   "resources" : [ ],
-  "source-url" : "https://git.ohthehugemanatee.tech/travis/Raku-LibUSB.git",
+  "source-url" : "https://github.com/Garland-g/Raku-LibUSB",
   "tags" : [ ],
   "test-depends" : [ ],
   "version" : "0.0.2"
