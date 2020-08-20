@@ -113,49 +113,49 @@ method speed(--> libusb_speed) {
 }
 
 multi method control-transfer(
-                        uint8 $request-type,
-                        uint8 $request,
-                        uint16 $value,
-                        uint16 $index,
+                        $request-type,
+                        $request,
+                        $value,
+                        $index,
                         blob8 $data,
-                        uint16 $elems,
-                        uint32 $timeout = 0
+                        $elems,
+                        $timeout = 0
                         ) {
   self.control-transfer(:$request-type, :$request, :$value, :$index, :$data, :$elems, :$timeout);
 }
 
 multi method control-transfer(
-                        uint8 :$request-type!,
-                        uint8 :$request!,
-                        uint16 :$value!,
-                        uint16 :$index!,
+                        :$request-type!,
+                        :$request!,
+                        :$value!,
+                        :$index!,
                         blob8 :$data!,
-                        uint16 :$elems!,
-                        uint32 :$timeout = 0
+                        :$elems!,
+                        :$timeout = 0
                         ) {
   fail X::LibUSB::No-Device-Selected unless $!dev;
   fail "Device not open" unless $!handle;
-  my $err = libusb_control_transfer($!handle, $request-type, $request, $value, $index, nativecast(Pointer[uint8], $data), $elems, $timeout);
+  my $err = libusb_control_transfer($!handle, $request-type, $request, $value, $index, nativecast(Pointer, $data), $elems, $timeout);
   die self!get-error($err) if $err < 0;
   return $err;
 }
 
 multi method interrupt-transfer(
-                        uint8 $endpoint,
+                        $endpoint,
                         blob8 $data,
-                        uint16 $elems,
+                        $elems,
                         Int $transferred is rw,
-                        uint32 $timeout = 0
+                        $timeout = 0
                         ) {
-  self.interrupt-transfer(:$endpoint, :$data, :$transferred, :$timeout);
+  self.interrupt-transfer(:$endpoint, :$data, :$elems, :$transferred, :$timeout);
 }
 
 multi method interrupt-transfer(
-                        uint8 :$endpoint!,
+                        :$endpoint!,
                         blob8 :$data!,
-                        uint16 :$elems!,
+                        :$elems!,
                         Int :$transferred! is rw,
-                        uint32 :$timeout = 0
+                        :$timeout = 0
                         ) {
   fail X::LibUSB::No-Device-Selected unless $!dev;
   fail "Device not open" unless $!handle;
@@ -167,21 +167,21 @@ multi method interrupt-transfer(
 }
 
 multi method bulk-transfer(
-                        uint8 $endpoint,
+                        $endpoint,
                         blob8 $data,
-                        uint16 $elems,
+                        $elems,
                         Int $transferred is rw,
-                        uint32 $timeout = 0
+                        $timeout = 0
                         ) {
-  self.bulk-transfer(:$endpoint, :$data, :$transferred, :$timeout);
+  self.bulk-transfer(:$endpoint, :$data, :$elems, :$transferred, :$timeout);
 }
 
 multi method bulk-transfer(
-                        uint8 :$endpoint!,
+                        :$endpoint!,
                         blob8 :$data!,
-                        uint16 :$elems!,
+                        :$elems!,
                         Int :$transferred! is rw,
-                        uint32 :$timeout = 0
+                        :$timeout = 0
                         ) {
   fail X::LibUSB::No-Device-Selected unless $!dev;
   fail "Device not open" unless $!handle;
