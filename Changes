@@ -2,6 +2,11 @@ Revision history for LibUSB
 
 {{$NEXT}}
 
+0.0.3  2020-08-19T18:32:06-07:00
+    - Add synchronous bulk and interrupt transfer
+    - Allow access to device handle
+    - Work around Rakudo bugs with native uints
+
 0.0.2  2020-06-28T13:18:51-07:00
     - Change shared library base name
 
