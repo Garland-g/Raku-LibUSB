@@ -1,5 +1,5 @@
 {
-  "auth" : "cpan:GARLANDG",
+  "auth" : "github:Garland-g",
   "authors" : [
     "Travis Gibson"
   ],
@@ -8,7 +8,7 @@
   "description" : "OO binding to libusb",
   "license" : "Artistic-2.0",
   "name" : "LibUSB",
-  "perl" : "6.c",
+  "raku" : "6.c",
   "provides" : {
     "LibUSB" : "lib/LibUSB.rakumod",
     "LibUSB::Raw" : "lib/LibUSB/Raw.rakumod",
